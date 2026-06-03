@@ -26,7 +26,7 @@ export function ConnectorsTab() {
   return (
     <div>
       <p className="text-sm text-neutral-600 mb-7 max-w-2xl">
-        Connect productivity tools so Shasta can act on your behalf — file
+        Connect productivity tools so Annapurna can act on your behalf — file
         tickets, send messages, draft email — using your identity in each tool.
         Each analyst connects their own. Revoke anytime.
       </p>

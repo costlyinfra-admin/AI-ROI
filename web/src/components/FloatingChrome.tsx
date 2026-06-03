@@ -4,19 +4,19 @@
 
 const REFER_SUBJECT = "Get your free cloud and AI scan done";
 const BUG_TO = "hello@transilience.ai";
-const BUG_SUBJECT = "Bug report — Shasta";
+const BUG_SUBJECT = "Bug report — Annapurna";
 
 function buildReferHref(): string {
   const signupUrl = `${window.location.origin}/signin`;
   const body =
     `Hey,\n\n` +
-    `I've been using Shasta by Transilience — it runs cloud security and ` +
+    `I've been using Annapurna — it runs cloud security and ` +
     `AI security scans across AWS, Azure, GCP, and Entra in one place, ` +
     `then maps everything to the frameworks you actually care about ` +
     `(SOC 2, ISO 27001, NIST AI RMF, EU AI Act). Thought you'd find it ` +
     `useful too.\n\n` +
     `Sign up here — first scan is free:\n${signupUrl}\n\n` +
-    `— Sent from Shasta`;
+    `— Sent from Annapurna`;
   return `mailto:?subject=${encodeURIComponent(REFER_SUBJECT)}` +
          `&body=${encodeURIComponent(body)}`;
 }
@@ -36,7 +36,7 @@ export function FloatingChrome() {
     <>
       <a
         href={buildReferHref()}
-        title="Email a friend an invite to try Shasta"
+        title="Email a friend an invite to try Annapurna"
         style={{
           position: "fixed", top: 16, right: 20, zIndex: 50,
           background: "#3A342B", color: "#FFFCF6",

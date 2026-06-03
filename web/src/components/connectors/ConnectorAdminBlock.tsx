@@ -41,7 +41,7 @@ export function ConnectorAdminBlock() {
   };
 
   const onRevoke = async () => {
-    if (!window.confirm("Disconnect Shasta's bot from your Slack workspace?")) return;
+    if (!window.confirm("Disconnect Annapurna's bot from your Slack workspace?")) return;
     setBusy(true);
     await api.revokeSlackBot();
     setStatus({
@@ -66,7 +66,7 @@ export function ConnectorAdminBlock() {
           onClick={install}
           disabled={busy}
         >
-          Install Shasta to your Slack workspace
+          Install Annapurna to your Slack workspace
         </button>
       )}
 

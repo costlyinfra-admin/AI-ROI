@@ -32,19 +32,16 @@ export function ModuleRail({ email, isAdmin }: ModuleRailProps) {
                   display: "flex", flexDirection: "column", padding: 0,
                   flexShrink: 0 }}>
 
-      {/* Brand block — "Shasta by Transilience" (link to transilience.ai) + tagline */}
+      {/* Brand block */}
       <div style={{ padding: "18px 18px 16px",
                     borderBottom: "1px solid #4A4238" }}>
-        <a
-          href="https://www.transilience.ai"
-          target="_blank"
-          rel="noopener noreferrer"
+        <span
           style={{ display: "block", fontSize: 14, fontWeight: 600,
                    color: "#FFFCF6", letterSpacing: "-0.005em",
-                   marginBottom: 4, textDecoration: "none" }}
+                   marginBottom: 4 }}
         >
-          Shasta by Transilience
-        </a>
+          Annapurna
+        </span>
         <div style={{ fontSize: 10, textTransform: "uppercase",
                       letterSpacing: "0.12em", color: "#A89B89",
                       fontWeight: 600 }}>

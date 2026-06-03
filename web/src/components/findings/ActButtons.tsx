@@ -20,7 +20,7 @@ export function ActButtons({
     );
     if (!channel) return;
     const text =
-      `[Shasta] ${finding.title}` +
+      `[Annapurna] ${finding.title}` +
       (finding.resource_arn ? ` — ${finding.resource_arn}` : "");
     setPending(true); setMsg(null);
     try {
