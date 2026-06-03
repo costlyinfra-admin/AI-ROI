@@ -1,4 +1,4 @@
-# Shasta by Transilience
+# Annapurna
 
 **The Full Stack Security OS** — one platform for cloud security, AI
 security, SOC, and compliance, accessible from web, iOS, voice, and
@@ -7,7 +7,7 @@ scans, ingests real-time alerts and config drift, AI-enriches
 everything.
 
 Repo internal name is still `CISOBrief` (rename pending). Product
-brand on every UI surface is **"Shasta by Transilience"**.
+brand on every UI surface is **"Annapurna"**.
 
 ## Documents — read in this order at session start
 

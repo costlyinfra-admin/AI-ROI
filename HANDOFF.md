@@ -1,4 +1,4 @@
-# Shasta by Transilience — Handoff & State
+# Annapurna — Handoff & State
 
 ## 🔔 MCP Connectors Slice 2 — autonomous CRITICAL broadcast (shipped in 5 sub-slices)
 

@@ -1,6 +1,6 @@
 # Architecture
 
-> The load-bearing engineering decisions behind Shasta by Transilience.
+> The load-bearing engineering decisions behind Annapurna.
 > Written for the engineer who joins the team next week and needs to
 > understand why the codebase looks the way it does.
 >

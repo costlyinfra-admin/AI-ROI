@@ -1,4 +1,4 @@
-# Shasta by Transilience
+# Annapurna
 
 > **The Full Stack Security OS** — one platform for cloud security, AI
 > security, SOC, and compliance, accessible from web, iOS, voice, and
@@ -19,7 +19,7 @@ tool has its own findings model, its own identity graph, its own
 compliance crosswalk, its own UI. The CISO becomes the integration
 layer — which doesn't scale, and breaks every time something changes.
 
-**Shasta is the opposite bet.** One unified findings model. One identity
+**Annapurna is the opposite bet.** One unified findings model. One identity
 graph. One compliance crosswalk that maps to NIST AI RMF, ISO 42001, EU
 AI Act, SOC 2, ISO 27001, PCI, FedRAMP, and CIS — automatically. One
 front door, accessible from a web console, an iOS app, a real-time voice
@@ -39,7 +39,7 @@ One platform. Every signal a CISO needs.
 
 ---
 
-## What Shasta covers today
+## What Annapurna covers today
 
 ### Cloud security
 
@@ -105,7 +105,7 @@ One platform. Every signal a CISO needs.
 
 ## The four surfaces
 
-Shasta is built so a CISO can choose the surface that matches the moment.
+Annapurna is built so a CISO can choose the surface that matches the moment.
 
 | Surface | Best at | Tech |
 |---------|---------|------|
@@ -113,7 +113,7 @@ Shasta is built so a CISO can choose the surface that matches the moment.
 | **iOS** | The alerting + handoff companion. Push notifications when something demands attention, a quick read on the go, a one-tap handoff to a teammate. | SwiftUI (iOS 17+), Cognito OAuth via `ASWebAuthSession`, APNs push |
 | **Voice** | Hands-free walk-through. "What changed in AWS yesterday?" "Show me Entra users who logged into ChatGPT this week." | WebRTC real-time (not WebSocket — the platform AEC prevents the speakerphone echo loop), OpenAI / Gemini realtime models |
 | **Chat** | The question-answer surface. Streaming responses with tool calls into the underlying data. Replaces the home-page dashboard for many users. | Lambda Web Adapter for streaming on managed Python Lambda, LiteLLM for model abstraction |
-| **MCP** | (Future) Outbound action layer — Shasta drafts the Slack message, the JIRA ticket, the M365 share, all approval-gated. | MCP servers per integration, see [ROADMAP.md](ROADMAP.md) §M5 |
+| **MCP** | (Future) Outbound action layer — Annapurna drafts the Slack message, the JIRA ticket, the M365 share, all approval-gated. | MCP servers per integration, see [ROADMAP.md](ROADMAP.md) §M5 |
 
 ---
 
@@ -136,14 +136,14 @@ in `docs/superpowers/specs/`; plans in `docs/superpowers/plans/`.
 | 2026-05-24 | Compliance Mapping Engine v2 — 8 frameworks, two-stage normalize → augment | Shipped |
 | 2026-05-25 | SOC Slice 1 — AWS Config drift + AI enrichment + `/soc` console | Shipped |
 | 2026-05-26 | SOC Slice 1c — Threat-intel substrate (5,726 IOCs) | Shipped |
-| Next | "Shasta by Transilience" branding + capability gating + billing module | In progress |
+| Next | "Annapurna" branding + capability gating + billing module | In progress |
 | Next | SOC Slice 2 — Identity drift (AWS IAM + Entra audit logs) | Planned |
 
 ---
 
 ## How this was built
 
-Shasta is built AI-natively. We use [Claude Code](https://claude.com/claude-code)
+Annapurna is built AI-natively. We use [Claude Code](https://claude.com/claude-code)
 and the Anthropic SDK as a daily development surface, the same way an
 earlier generation of engineers used `vim` + `git` + a REPL. That's
 worth naming explicitly because the velocity above isn't an accident, and
@@ -212,19 +212,19 @@ the test-tenant shortcut.
 
 ## Run it locally
 
-Shasta is a multi-tenant SaaS-shaped codebase. There is no
+Annapurna is a multi-tenant SaaS-shaped codebase. There is no
 `docker-compose up` path today — running it end-to-end requires an AWS
 account, a Cognito user pool, an Aurora Postgres cluster, an ECR
 repository for scanner images, and Microsoft + Google OAuth app
 registrations.
 
-**If you want to try Shasta the easy way:** sign in at
+**If you want to try Annapurna the easy way:** sign in at
 [shasta.transilience.cloud](https://shasta.transilience.cloud).
 
 **If you want to deploy your own copy:** the deployment commands live in
 [CLAUDE.md §"Common commands"](CLAUDE.md). The current state of every
 deployed surface lives in [HANDOFF.md](HANDOFF.md). A proper
-"deploy your own Shasta" guide is on the [ROADMAP.md](ROADMAP.md) — not
+"deploy your own Annapurna" guide is on the [ROADMAP.md](ROADMAP.md) — not
 today. You'll need to read the CDK stacks in `platform/lib/` and the
 scanner images in `platform/lambda/shasta_runner_*/` to fill in the
 gaps. Pull requests welcome once OSS opens up; until then, ping
@@ -271,7 +271,7 @@ CISOBrief.md     v1 PRD (Cloudflare-only KEV brief, retained for reference)
 
 - **[ARCHITECTURE.md](ARCHITECTURE.md)** — the load-bearing design
   decisions, ADRs, system overview.
-- **[ROADMAP.md](ROADMAP.md)** — where Shasta extends next: SOC slices,
+- **[ROADMAP.md](ROADMAP.md)** — where Annapurna extends next: SOC slices,
   M1–M7 heavy lifts, the OS-extension arenas (DSPM, CTEM, MDR, …), and
   the anti-roadmap (what we explicitly won't build).
 - **[HANDOFF.md](HANDOFF.md)** — source of truth for what's live right
