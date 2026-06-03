@@ -209,6 +209,42 @@ xcrun devicectl device install app --device <IOS_DEVICE_UDID> \
   Also set `turn_detection.interrupt_response: True` or every user
   interrupt 400s with "active response in progress".
 
+## AI FinOps conventions
+
+**Spec:** `docs/superpowers/specs/2026-06-01-ai-finops-design.md`
+
+- **`feature_id` is the spine.** Every cost row, signal, usage event, and
+  revenue attribution hangs off a `feature_id` UUID. Code that writes to
+  `feature_costs`, `feature_signals`, `feature_usage`, or `feature_revenue`
+  must supply a `feature_id` or explicitly leave it NULL (unmapped — surfaces
+  in the triage queue at `/ai-finops/mapping`).
+- **Four layers, independent degradation.** Layer 1 = feature definition +
+  mapping. Layer 2 = cost (2a build-time, 2b runtime). Layer 3 = usage.
+  Layer 4 = ROI. Each layer can be missing without breaking the others.
+  The dashboard renders whatever layers are populated.
+- **Confidence badge on every row.** `confidence` is `'high'|'med'|'low'`
+  (text, not enum). Every row in `feature_costs`, `feature_signals`,
+  `feature_usage`, and `feature_revenue` carries it. Resolution logic:
+  one exact match = `high`, two ambiguous matches = `med`, no match = `low`.
+  The UI shows badges and exposes `evidence_packet` on drill-down.
+- **`evidence_packet` for forensics, not `attributes`.** All JSONB blobs
+  are stored in `evidence_packet` to match the existing `findings.evidence_packet`
+  convention.
+- **Build-time attribution is probabilistic — say so.** The ±4h GitHub
+  branch window heuristic is best-effort. Never describe it as exact. The
+  `evidence_packet` carries the full resolution trace for any row a customer
+  questions.
+- **No single "ROI number", ever.** Revenue attribution is shown per-method
+  (tier / A/B / self-attested / engagement) with individual confidence badges.
+  Do not compute or display a combined ROI score.
+- **Ingest workers use EventBridge 6h cadence.** Last-run timestamp lives
+  in `feature_signals` (MAX occurred_at per tenant per source). Duplicate
+  ingest is prevented by the `since` timestamp, not by deduplication keys.
+- **SDK ingest token is not Cognito.** The `tenant_ingest_tokens` table
+  holds a separate per-tenant credential used by `transilience-tracker`.
+  The `/v1/finops/llm-call` endpoint authenticates against this token, not
+  the Cognito JWT, so the SDK can run from any process.
+
 ## Things you must NOT do
 
 - ❌ Commit secrets, API keys, tokens, `.env`, `.info`, `*.p8`. The
