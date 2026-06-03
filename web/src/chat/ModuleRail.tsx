@@ -12,6 +12,7 @@ const BASE_ITEMS: Array<{ to: string; label: string }> = [
   { to: "/trust",          label: "Trust center" },
   { to: "/ai",             label: "AI" },
   { to: "/ai/inventory",   label: "AI inventory" },
+  { to: "/ai-finops",      label: "AI FinOps" },
   { to: "/connect",        label: "Connect clouds" },
   { to: "/scan",           label: "Scan" },
   { to: "/soc",            label: "SOC" },

@@ -21,6 +21,11 @@ def handler(event, context):
         feature_id = path.split("/")[-2]
         return confirm_feature(tenant_id, feature_id,
                                json.loads(event["body"] or "{}"))
+    if method == "POST" and "/map" in path:
+        # POST /v1/finops/features/{id}/map — assign a signal to a feature
+        feature_id = path.split("/")[-2]
+        return map_signal(tenant_id, feature_id,
+                          json.loads(event["body"] or "{}"))
     if method == "PUT"  and "/features/" in path:
         feature_id = path.split("/")[-1]
         return update_feature(tenant_id, feature_id,
@@ -152,6 +157,30 @@ def update_feature(tenant_id, feature_id, body):
         ]
     )
     return _resp(200, {"status": "updated"})
+
+
+def map_signal(tenant_id, feature_id, body):
+    """Assign an unmapped signal to a feature (triage queue one-click action)."""
+    signal_id = body.get("signal_id")
+    if not signal_id:
+        return _resp(400, {"message": "signal_id required"})
+    _sql(
+        """UPDATE feature_signals
+           SET feature_id = :fid,
+               evidence_packet = evidence_packet || :override
+           WHERE signal_id = :sid AND tenant_id = :tid
+             AND feature_id IS NULL""",
+        [
+            {"name": "fid",      "value": {"stringValue": feature_id}},
+            {"name": "sid",      "value": {"stringValue": signal_id}},
+            {"name": "tid",      "value": {"stringValue": tenant_id}},
+            {"name": "override", "value": {"stringValue": json.dumps(
+                {"override": True, "override_feature_id": feature_id}
+            )}},
+        ]
+    )
+    return _resp(200, {"status": "mapped", "signal_id": signal_id,
+                       "feature_id": feature_id})
 
 
 def _resolve_tenant_id(claims):

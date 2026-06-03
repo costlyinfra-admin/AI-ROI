@@ -81,6 +81,8 @@ CREATE TABLE feature_usage (
 );
 CREATE INDEX ix_feature_usage_feature_time
   ON feature_usage (feature_id, occurred_at DESC);
+CREATE INDEX ix_feature_usage_tenant_user
+  ON feature_usage (tenant_id, end_user_id, occurred_at DESC);
 
 -- Slice 4 placeholder
 CREATE TABLE feature_revenue (

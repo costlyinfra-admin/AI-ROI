@@ -412,6 +412,39 @@ export interface AISummaryResponse {
   frameworks_meta: Record<string, FrameworkMeta>;
 }
 
+export type FinopsConfidence = "high" | "med" | "low";
+export type FinopsStatus = "planning" | "in-dev" | "shipped" | "sunset";
+
+export interface FinopsFeature {
+  feature_id:       string;
+  name:             string;
+  description:      string | null;
+  status:           FinopsStatus;
+  shipped_at:       string | null;
+  github_pr_labels: string[];
+  github_branch_re: string | null;
+  sdk_tags:         string[];
+}
+
+export interface FinopsCostRow {
+  feature_id:   string | null;
+  feature_name: string;
+  total_cost:   number;
+  call_count:   number;
+  phase:        "build" | "test" | "runtime";
+  confidence:   FinopsConfidence;
+}
+
+export interface FinopsDiscoveredFeature {
+  name:            string;
+  description:     string;
+  pr_label_match:  string[];
+  branch_pattern:  string;
+  path_pattern:    string[];
+  pr_numbers:      number[];
+  confidence:      FinopsConfidence;
+}
+
 export const api = {
   me: ()                                      => call<MeResponse>("/me"),
   complianceSummary: ()                       => call<ComplianceSummary>("/compliance/summary"),
@@ -663,4 +696,20 @@ export const api = {
     call<EntityGraph>(`/entities/${id}/graph?depth=${depth}&max_nodes=${maxNodes}`),
   getEntityRelationships:   (id: string, direction: "both" | "outgoing" | "incoming" = "both") =>
     call<{ relationships: EntityRelationship[] }>(`/entities/${id}/relationships?direction=${direction}`),
+
+  // AI FinOps
+  listFinopsFeatures: () =>
+    call<{ features: FinopsFeature[] }>("/finops/features"),
+  createFinopsFeature: (body: Partial<FinopsFeature>) =>
+    call<{ feature_id: string }>("/finops/features", { method: "POST", body: JSON.stringify(body) }),
+  confirmFinopsFeature: (featureId: string, body: object) =>
+    call<{ status: string; signals_seeded: number }>(`/finops/features/${featureId}/confirm`, { method: "POST", body: JSON.stringify(body) }),
+  updateFinopsFeature: (featureId: string, body: Partial<FinopsFeature>) =>
+    call<{ status: string }>(`/finops/features/${featureId}`, { method: "PUT", body: JSON.stringify(body) }),
+  mapFinopsSignal: (featureId: string, signalId: string) =>
+    call<{ status: string }>(`/finops/features/${featureId}/map`, { method: "POST", body: JSON.stringify({ signal_id: signalId }) }),
+  listFinopsCosts: (days = 30) =>
+    call<{ costs: FinopsCostRow[] }>(`/finops/costs?days=${days}`),
+  discoverFinopsFeatures: () =>
+    call<{ status: string; features: FinopsDiscoveredFeature[] }>("/finops/discover", { method: "POST", body: "{}" }),
 };

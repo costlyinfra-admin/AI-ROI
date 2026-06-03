@@ -24,6 +24,9 @@ import Scan from "./routes/Scan";
 import Soc from "./routes/Soc";
 import { Settings } from "./routes/Settings/Settings";
 import { DeepLinkGate } from "./components/DeepLinkGate";
+import { FeaturesPage } from "./routes/AIFinOps/FeaturesPage";
+import { MappingPage } from "./routes/AIFinOps/MappingPage";
+import { OnboardingPage } from "./routes/AIFinOps/OnboardingPage";
 
 export default function App() {
   return (
@@ -60,7 +63,10 @@ export default function App() {
           <Route path="/ai/connections/:id/repos" element={<RepoPicker />} />
           <Route path="/ai/inventory"             element={<AIInventory />} />
           <Route path="/ai/inventory/:asset_id"   element={<AssetDetail />} />
-          <Route path="/settings"   element={<Settings />} />
+          <Route path="/settings"      element={<Settings />} />
+          <Route path="/ai-finops"     element={<FeaturesPage />} />
+          <Route path="/ai-finops/mapping"    element={<MappingPage />} />
+          <Route path="/ai-finops/onboarding" element={<OnboardingPage />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />
